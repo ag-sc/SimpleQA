@@ -28,16 +28,16 @@ public class PairwiseLinkingBaseline {
     private static final int topK = 10;
 
     public static void main(String[] args) {
-        train("test");
+        test("test");
     }
 
-    private static void train(String fileName) {
+    private static void test(String fileName) {
 
         Map<String, Set<String>> entity2PredicateMap = new HashMap<>();
 
         System.out.println("Reading Freebase2M file into memory ... ");
 
-        String filePath = "/home/sherzod/NetBeansProjects/SimpleQuestions.DBpedia/SimpleQuestions_v2/freebase-subsets/freebase-FB2M.txt";
+        String filePath = "freebaseFiles/freebase-FB2M.txt";
         Set<String> content = FileUtil.readFile(filePath);
 
         for (String item : content) {
@@ -70,12 +70,12 @@ public class PairwiseLinkingBaseline {
 
             count++;
 
-            if (count == 10000) {
-                break;
-            }
+//            if (count == 10000) {
+//                break;
+//            }
 
             if (count % 1000 == 0) {
-                double progr = count / (double) 10000;
+                double progr = count / (double) dataPoints.size();
                 String strDouble = String.format("%.4f", progr);
                 System.out.println(fileName + ": " + strDouble);
             }
@@ -182,6 +182,5 @@ public class PairwiseLinkingBaseline {
         System.out.println("Predicate Recall: " + predicateScore);
     }
 
-    private static void test() {
-    }
+
 }
