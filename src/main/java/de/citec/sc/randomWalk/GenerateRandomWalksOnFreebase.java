@@ -24,10 +24,10 @@ import java.util.stream.Stream;
 public class GenerateRandomWalksOnFreebase {
 
     private static Map<Integer, List<Pair>> freebaseMap;
-    private static final String sequenceDir = "freebaseSequenceFiles";
-    private static final String freebaseTriplePath = "freebaseFiles/dummy.txt";
-//    private static final String sequenceDir = "../freebaseSequenceFiles";
-//    private static final String freebaseTriplePath = "../freebaseFiles/freebasePreprocessedDump.txt";
+//    private static final String sequenceDir = "freebaseSequenceFiles";
+//    private static final String freebaseTriplePath = "freebaseFiles/dummy.txt";
+    private static final String sequenceDir = "../freebaseSequenceFiles";
+    private static final String freebaseTriplePath = "../freebaseFiles/freebasePreprocessedDump.txt";
     private static final int sequenceSize = 10;
     private static final int maxIterations = 1000;
     private static final double alpha = 0.15d;
@@ -58,21 +58,19 @@ public class GenerateRandomWalksOnFreebase {
             StringBuffer sequence = sequenceGenerator.generateRandomSequence(nodeID, freebaseMap);
             output.append(sequence);
             
-            //write every 10K nodes into file
-            if (lineCount.incrementAndGet() % 10000 == 0) {
-                FileUtil.writeStringBufferToFile(sequenceDir + "/" + lineCount.get() + ".txt", output, false);
-            }
-            
-            
 
-            if (lineCount.incrementAndGet() % 100000 == 0) {
+            if (lineCount.incrementAndGet() % 10000 == 0) {
                 double s = lineCount.get() / (double) freebaseMap.size();
+                
+                //write to file
+                FileUtil.writeStringBufferToFile(sequenceDir + "/" + lineCount.get() + ".txt", output, false);
+                output.setLength(0);
                 System.out.println("Done = " + s);
             }
 
         });
         
-        FileUtil.writeStringBufferToFile(sequenceDir + "/" + lineCount.get() + ".txt", output, false);
+        FileUtil.writeStringBufferToFile(sequenceDir + "/remaining.txt", output, false);
 
     }
 

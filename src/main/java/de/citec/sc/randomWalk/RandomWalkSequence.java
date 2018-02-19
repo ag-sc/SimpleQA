@@ -6,9 +6,11 @@
 package de.citec.sc.randomWalk;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -79,16 +81,16 @@ public class RandomWalkSequence {
      */
     public StringBuffer generateRandomSequence(int startNodeID, Map<Integer, List<Pair>> map) {
 
-        int currentNode = startNodeID;
-
-        StringBuffer sequences = new StringBuffer("");
-
+        StringBuffer result = new StringBuffer("");
         /*
 		 * A loop over the number of iterations.
          */
+        List<String> set = new ArrayList<>();
+
         for (int i = 0; i < maxIterations; i++) {
 
             StringBuffer sequence = new StringBuffer("");
+            int currentNode = startNodeID;
 
             for (int j = 0; j < sequenceSize; j++) {
 
@@ -108,11 +110,17 @@ public class RandomWalkSequence {
                     currentNode = nextNodeID;
                 }
             }
-            //add the sequence as new line
-            sequences.append(sequence).append("\n");
+
+            if (sequence.length() > 2) {
+                set.add(sequence.toString());
+            }
         }
 
-        return sequences;
+        for (String s : set) {
+            result.append(s).append("\n");
+        }
+
+        return result;
     }
 
     /**
