@@ -61,7 +61,7 @@
         </repository>
     </repositories>
 
-    <distributionManagement>
+<!--    <distributionManagement>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus snapshot repository</name>
@@ -72,9 +72,9 @@
             <name>Nexus Release Repository</name>
             <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
-    </distributionManagement>
+    </distributionManagement>-->
     
-    <dependencyManagement>
+<!--    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.nd4j</groupId>
@@ -92,7 +92,7 @@
                 <version>${nd4j.version}</version>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement>-->
     
     <dependencies>
         <dependency>
@@ -115,13 +115,13 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ND4J backend. You need one in every DL4J project. Normally define artifactId as either "nd4j-native-platform" or "nd4j-cuda-7.5-platform" -->
+<!--         ND4J backend. You need one in every DL4J project. Normally define artifactId as either "nd4j-native-platform" or "nd4j-cuda-7.5-platform" 
         <dependency>
             <groupId>org.nd4j</groupId>
             <artifactId>${nd4j.backend}</artifactId>
         </dependency>
 
-        <!-- Core DL4J functionality -->
+         Core DL4J functionality 
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-core</artifactId>
@@ -134,28 +134,28 @@
             <version>${dl4j.version}</version>
         </dependency>
 
-        <!-- deeplearning4j-ui is used for HistogramIterationListener + visualization: see http://deeplearning4j.org/visualization -->
+         deeplearning4j-ui is used for HistogramIterationListener + visualization: see http://deeplearning4j.org/visualization 
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-ui_${scala.binary.version}</artifactId>
             <version>${dl4j.version}</version>
-        </dependency>
+        </dependency>-->
 
-        <!-- Force guava versions for using UI/HistogramIterationListener -->
+<!--         Force guava versions for using UI/HistogramIterationListener 
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
 
-        <!-- datavec-data-codec: used only in video example for loading video data -->
+         datavec-data-codec: used only in video example for loading video data 
         <dependency>
             <artifactId>datavec-data-codec</artifactId>
             <groupId>org.datavec</groupId>
             <version>${datavec.version}</version>
         </dependency>
 
-        <!-- Used in the feedforward/classification/MLP* and feedforward/regression/RegressionMathFunctions example -->
+         Used in the feedforward/classification/MLP* and feedforward/regression/RegressionMathFunctions example 
         <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
@@ -165,15 +165,15 @@
             <groupId>org.jfree</groupId>
             <artifactId>jcommon</artifactId>
             <version>${jcommon.version}</version>
-        </dependency>
+        </dependency>-->
 
-        <!-- Used for downloading data in some of the examples -->
+<!--         Used for downloading data in some of the examples 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.3.5</version>
         </dependency>
-        
+        -->
         
 
 
@@ -226,7 +226,7 @@
     
     <build>
         <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>${exec-maven-plugin.version}</version>
@@ -279,7 +279,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
