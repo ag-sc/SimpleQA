@@ -44,6 +44,20 @@ public class FileUtil {
         return content;
     }
 
+    public static void deleteFolderWithContent(String path) {
+        File dir = new File(path);
+
+        if (dir.isDirectory()) {
+
+            File[] listFiles = dir.listFiles();
+            for (File file : listFiles) {
+                file.delete();
+            }
+            
+            dir.delete();
+        }
+    }
+
     public static Set<String> readFile(String path) {
 
         return readFile(new File(path));
@@ -110,9 +124,34 @@ public class FileUtil {
             for (String s : content) {
                 c += s + "\n";
             }
+
             pw.print(c);
 
             pw.close();
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeStringBufferToFile(String fileName, StringBuffer content, boolean append) {
+        try {
+            File file = new File(fileName);
+
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file, append);
+            BufferedWriter bw = new BufferedWriter(fw);
+            if (append) {
+                bw.append(content.toString().trim());
+            } else {
+                bw.write(content.toString().trim());
+            }
+
+            bw.flush();
             bw.close();
             fw.close();
         } catch (IOException e) {

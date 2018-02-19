@@ -30,6 +30,10 @@ public class ExtractPagelinksFromFreebase {
     public static void main(String[] args) {
 
         Set<String> validEntities = new ConcurrentHashSet<>();
+        
+        Map<String, AtomicInteger> mapOfEntities = new ConcurrentHashMap<>();
+//        Map<String, AtomicInteger> mapOfPredicates = new ConcurrentHashMap<>();
+        Map<String, Map<String, AtomicInteger>> mapOfPredicates = new ConcurrentHashMap<>();
 
         System.out.println("Loading freebase2m into memory");
 
@@ -43,11 +47,25 @@ public class ExtractPagelinksFromFreebase {
                 String subject = c[0].replace("www.freebase.com/", "").replace("/", ".");
                 String predicate = c[1].replace("www.freebase.com/", "").replace("/", ".");
                 String[] objects = c[2].replace("www.freebase.com/", "").replace("/", ".").split("\\s");
-
+                
                 validEntities.add(subject);
 
                 for (String object : objects) {
                     validEntities.add(object);
+                }
+                
+                synchronized (mapOfPredicates) {
+                    if (!mapOfPredicates.containsKey(subject))
+                        mapOfPredicates.put(subject, new ConcurrentHashMap<>());
+                }
+                
+                Map<String, AtomicInteger> targetMap = mapOfPredicates.get(subject);
+                
+                synchronized (targetMap) {
+                    if (!targetMap.containsKey(predicate))
+                        targetMap.put(predicate, new AtomicInteger(0));
+                    
+                    targetMap.get(predicate).addAndGet(1);
                 }
 
             });
@@ -60,6 +78,8 @@ public class ExtractPagelinksFromFreebase {
         extractPageLinks("../freebase-rdf-latest", validEntities);
 
     }
+    
+    
 
     private static void extractPageLinks(String filePath, Set<String> entities) {
 

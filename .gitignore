@@ -22,5 +22,6 @@
 hs_err_pid*
 freebaseFiles
 target
+freebaseSequenceFiles
 ud-cache.txt
 nbactions.xml

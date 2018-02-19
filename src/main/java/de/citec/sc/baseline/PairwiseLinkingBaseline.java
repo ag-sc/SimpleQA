@@ -10,6 +10,7 @@ import de.citec.sc.index.Language;
 import de.citec.sc.utils.FileUtil;
 import de.citec.sc.utils.KnowledgeBaseLinker;
 import de.citec.sc.utils.NGramExtractor;
+import de.citec.sc.utils.SortUtils;
 import de.citec.sc.utils.WordEmbeddingUtil;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -92,6 +93,10 @@ public class PairwiseLinkingBaseline {
             // entity matches are always in 0 index, predicates are in index 1
             List<Instance> entityMatches = matches.get(0);
             List<Instance> predicateMatches = matches.get(1);
+            
+            
+            
+            
 
             String detectedPredicateURI = "";
             String detectedEntityURI = "";
@@ -133,6 +138,8 @@ public class PairwiseLinkingBaseline {
                 String maxPredicate = "";
                 String maxEntity = "";
                 double maxPredicateSimScore = 0;
+                
+                Map<Object, Double> topKPredicates = new HashMap<>();
 
                 for (Instance entityInstance : entityMatches) {
                     Set<String> entityPredicates = entity2PredicateMap.get(entityInstance.getUri());
@@ -144,6 +151,7 @@ public class PairwiseLinkingBaseline {
                         List<String> ngrams = NGramExtractor.extractAllNGrams(text, predicateMaxNGramSize);
 
                         //compute embedding similarity with predicate label and each ngram
+                        double predicateSimScore = 0;
                         for (String ngram : ngrams) {
                             double embeddingSim = WordEmbeddingUtil.computeSimilarity(ngram, predicateLabel, Language.lang.EN);
 
@@ -152,9 +160,21 @@ public class PairwiseLinkingBaseline {
                                 maxEntity = entityInstance.getUri();
                                 maxPredicateSimScore = embeddingSim;
                             }
+                            
+                            
+                            if(predicateSimScore < embeddingSim){
+                                predicateSimScore = embeddingSim;
+                            }
                         }
+                        
+                        topKPredicates.put(p, predicateSimScore);
                     }
                 }
+                
+                //sort predicates by sim score
+                topKPredicates = SortUtils.sortByDoubleValue(topKPredicates);
+                
+                
 
                 detectedEntityURI = maxEntity;
                 detectedPredicateURI = maxPredicate;
@@ -182,5 +202,17 @@ public class PairwiseLinkingBaseline {
         System.out.println("Predicate Recall: " + predicateScore);
     }
 
+/** 
+Without embedding
+Overall Recall: 0.2123
+Entity Recall: 0.2435
+Predicate Recall: 0.2541
 
+
+
+With embedding
+Overall Recall: 0.39350763129985705
+Entity Recall: 0.52423110619265
+Predicate Recall: 0.45764743855766127
+ */
 }
