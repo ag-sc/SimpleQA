@@ -81,7 +81,7 @@ public class EntityLinking {
         }
 
         //write the head of the file
-        FileUtil.writeListToFile(trainingDataFilePath, headData, true);
+        FileUtil.writeStringToFile(trainingDataFilePath, headData, true);
 
         //loop over all training instances and extract uris with their features
         int count = 0;
@@ -166,7 +166,7 @@ public class EntityLinking {
 
                             //write to file
                             //write the head of the file
-                            FileUtil.writeListToFile(trainingDataFilePath, dataPoints, true);
+                            FileUtil.writeStringToFile(trainingDataFilePath, dataPoints, true);
 
                             break;
                         }
@@ -258,7 +258,7 @@ public class EntityLinking {
 
             //write to file
             //write the head of the file
-            FileUtil.writeListToFile(testingFilePath, dataPoints, false);
+            FileUtil.writeSetToFile(testingFilePath, dataPoints, false);
         }
     }
 

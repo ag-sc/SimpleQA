@@ -183,14 +183,14 @@ public class PageRankForFreebase {
 
             if (counter.incrementAndGet() % 10000 == 0) {
 
-                FileUtil.writeListToFile(pageRankFilePath, pageRankScores, true);
+                FileUtil.writeSetToFile(pageRankFilePath, pageRankScores, true);
                 pageRankScores.clear();
             }
 
         });
 
         //save the remaining parts as well
-        FileUtil.writeListToFile(pageRankFilePath, pageRankScores, true);
+        FileUtil.writeSetToFile(pageRankFilePath, pageRankScores, true);
 
     }
 

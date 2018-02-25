@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -87,7 +88,7 @@ public class FileUtil {
 //        return content;
     }
 
-    public static void writeListToFile(String fileName, String content, boolean append) {
+    public static void writeStringToFile(String fileName, String content, boolean append) {
         try {
             File file = new File(fileName);
 
@@ -108,7 +109,7 @@ public class FileUtil {
         }
     }
 
-    public static void writeListToFile(String fileName, Set<String> content, boolean append) {
+    public static void writeSetToFile(String fileName, Set<String> content, boolean append) {
         try {
             File file = new File(fileName);
 
@@ -119,17 +120,40 @@ public class FileUtil {
             FileWriter fw = new FileWriter(file, append);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            String c = "";
 
             for (String s : content) {
-                c += s + "\n";
+                pw.println(s);
             }
-
-            pw.print(c);
 
             pw.close();
             bw.close();
             fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void writeListToFile(String fileName, List<String> content, boolean append) {
+        try {
+            File file = new File(fileName);
+
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file, append);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            
+            for (String s : content) {
+                pw.println(s);
+            }
+
+            pw.close();
+            bw.close();
+            fw.close();
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,11 +169,10 @@ public class FileUtil {
             }
             FileWriter fw = new FileWriter(file, append);
             BufferedWriter bw = new BufferedWriter(fw);
-            if (append) {
-                bw.append(content.toString().trim());
-            } else {
-                bw.write(content.toString().trim());
-            }
+            PrintWriter pw = new PrintWriter(bw);
+            pw.println(content.toString());
+            
+            
 
             bw.flush();
             bw.close();

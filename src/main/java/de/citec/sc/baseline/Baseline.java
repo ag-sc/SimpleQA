@@ -531,8 +531,8 @@ public class Baseline {
             entities.add("http://rdf.freebase.com/ns/"+object);
         }
         
-        FileUtil.writeListToFile("predicates.txt", predicates, false);
-        FileUtil.writeListToFile("entities.txt", entities, false);
+        FileUtil.writeSetToFile("predicates.txt", predicates, false);
+        FileUtil.writeSetToFile("entities.txt", entities, false);
         
 
         
@@ -619,7 +619,7 @@ public class Baseline {
                 if (!freebaseMap.isEmpty()) {
                     s = objectMapper.writeValueAsString(freebaseMap);
 
-                    FileUtil.writeListToFile(filePath, s, false);
+                    FileUtil.writeStringToFile(filePath, s, false);
                 }
             } catch (JsonProcessingException ex) {
                 ex.printStackTrace();

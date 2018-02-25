@@ -197,12 +197,12 @@ public class ExtractPagelinksFromFreebase {
                 output.add(node + "\t" + nodeID);
 
                 if (output.size() % 10000 == 0) {
-                    FileUtil.writeListToFile(node2IntegerFilePath, output, true);
+                    FileUtil.writeSetToFile(node2IntegerFilePath, output, true);
                 }
             });
 
             //save the remaining
-            FileUtil.writeListToFile(node2IntegerFilePath, output, true);
+            FileUtil.writeSetToFile(node2IntegerFilePath, output, true);
 
             System.out.println("Node2Int file is saved.");
 
@@ -218,12 +218,12 @@ public class ExtractPagelinksFromFreebase {
 
                 output.add(mapAsString);
                 if (output.size() % 10000 == 0) {
-                    FileUtil.writeListToFile(adjacencyFilePath, output, true);
+                    FileUtil.writeSetToFile(adjacencyFilePath, output, true);
                 }
             }
 
             //save the remaining
-            FileUtil.writeListToFile(adjacencyFilePath, output, true);
+            FileUtil.writeSetToFile(adjacencyFilePath, output, true);
 
             System.out.println("AdjacencyMap file is saved.");
 

@@ -110,7 +110,7 @@ public class PreprocessFreebaseDump {
                     output.append(preprocessedTriple).append("\n");
 
                     if (lineCount.incrementAndGet() % 10000 == 0) {
-                        FileUtil.writeStringBufferToFile(freebaseOutputFilePath, output, true);
+                        FileUtil.writeStringToFile(freebaseOutputFilePath, output.toString(), true);
                         //clear the buffer
                         output.setLength(0);
                     }

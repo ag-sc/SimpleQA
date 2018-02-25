@@ -52,7 +52,7 @@ public class AnalyseFreebase {
 
                 if (count.incrementAndGet() % 10000000 == 0) {//3130753066
 
-                    FileUtil.writeListToFile("obamaPredicates.txt", result, true);
+                    FileUtil.writeSetToFile("obamaPredicates.txt", result, true);
                     double s = count.get() / (double) maxNumberOfLines;
 
                     System.out.println("Done = " + s);
@@ -75,6 +75,6 @@ public class AnalyseFreebase {
             e.printStackTrace();
         }
 
-        FileUtil.writeListToFile("obamaPredicates.txt", result, false);
+        FileUtil.writeSetToFile("obamaPredicates.txt", result, false);
     }
 }

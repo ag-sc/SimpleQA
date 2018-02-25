@@ -223,8 +223,8 @@ public class GenerateTrainingPoints {
                 + "@ATTRIBUTE class        {0,1}\n"
                 + "@DATA\n";
 
-        FileUtil.writeListToFile("wekaEntityLinkingTrainingData.arff", wekaFileHeader, false);
-        FileUtil.writeListToFile("wekaEntityLinkingTrainingData.arff", dataPoints, true);
+        FileUtil.writeStringToFile("wekaEntityLinkingTrainingData.arff", wekaFileHeader, false);
+        FileUtil.writeSetToFile("wekaEntityLinkingTrainingData.arff", dataPoints, true);
     }
 
    

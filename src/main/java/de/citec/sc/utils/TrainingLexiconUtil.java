@@ -105,7 +105,7 @@ public class TrainingLexiconUtil {
             if (map != null) {
                 s = objectMapper.writeValueAsString(map);
 
-                FileUtil.writeListToFile("trainingLexicon-cache.txt", s, false);
+                FileUtil.writeStringToFile("trainingLexicon-cache.txt", s, false);
             }
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();

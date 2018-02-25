@@ -38,8 +38,8 @@ public class OnMemoryIndex {
         long startTime = System.currentTimeMillis();
         System.out.println("Loading index files ...");
         //English files
-        resourceIndexEN = loadIndexFile("indexFiles/freebaseEntityIndex.txt");
-        propertyIndexEN = loadIndexFile("indexFiles/freebasePredicateIndex.txt");
+        resourceIndexEN = loadIndexFile("../indexFiles/freebaseEntityIndex.txt");
+        propertyIndexEN = loadIndexFile("../indexFiles/freebasePredicateIndex.txt");
         long endTime = System.currentTimeMillis();
         System.out.println("Loading finished in " + (endTime - startTime) + " ms.");
 

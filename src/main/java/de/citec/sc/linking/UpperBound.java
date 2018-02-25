@@ -163,7 +163,7 @@ public class UpperBound {
             fileNamePath += "_predicate.txt";
         }
 
-        FileUtil.writeListToFile(fileNamePath, output, false);
+        FileUtil.writeStringToFile(fileNamePath, output, false);
 
     }
 

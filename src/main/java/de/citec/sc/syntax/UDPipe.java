@@ -237,6 +237,6 @@ public class UDPipe {
             parseTrees.add(parseTree);
         }
 
-        FileUtil.writeListToFile("ud-cache.txt", obj.toJSONString(), false);
+        FileUtil.writeStringToFile("ud-cache.txt", obj.toJSONString(), false);
     }
 }

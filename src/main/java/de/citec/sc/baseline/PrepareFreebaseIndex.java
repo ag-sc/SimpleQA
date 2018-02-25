@@ -10,8 +10,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.citec.sc.index.Language;
 import de.citec.sc.utils.FileUtil;
 import de.citec.sc.utils.StringPreprocessor;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -30,6 +34,9 @@ public class PrepareFreebaseIndex {
 
     private static Map<String, Map<String, Integer>> entitySurfaceFormMap;
     private static Map<String, Map<String, Integer>> predicateSurfaceFormMap;
+    
+    private static final String freebase2MPath = "../freebaseFiles/freebase-FB2M.txt";
+    private static final String freebaseToDBpediaMappingPath = "../freebaseFiles/freebaseToDBpediaMapping.txt";
 
     public static void main(String[] args) {
 
@@ -41,24 +48,27 @@ public class PrepareFreebaseIndex {
         Set<String> predicates = new ConcurrentHashSet<>();
 
         System.out.println("Reading Freebase2M file into memory ... ");
-        String filePath = "freebase-FB2M.txt";
-        try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
-            stream.parallel().forEach(item -> {
+        try {
+            FileInputStream fstream = new FileInputStream(freebase2MPath);
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            String strLine;
 
-                String[] c = item.split("\t");
+            while ((strLine = br.readLine()) != null) {
+
+                String[] c = strLine.split("\t");
 
                 String subject = c[0].replace("www.freebase.com/", "").replace("/", ".");
                 String predicate = c[1].replace("www.freebase.com/", "").replace("/", ".");
 
                 entities.add(subject);
                 predicates.add(predicate);
-            });
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            }
+        } catch (Exception e) {
         }
 
-        Map<String, String> freebaseToDBpediaMap = loadFreebaseToDBpediaMapping("freebaseFiles/freebaseToDBpediaLinks.txt");
+        Map<String, String> freebaseToDBpediaMap = loadFreebaseToDBpediaMapping(freebaseToDBpediaMappingPath);
 
         //load dbpedia index and replace the dbpedia URIs with freebase MIDs
         //add entities that appear in subject position of Freebase2M triples
@@ -286,7 +296,7 @@ public class PrepareFreebaseIndex {
             if (!map.isEmpty()) {
                 s = objectMapper.writeValueAsString(map);
 
-                FileUtil.writeListToFile(filePath, s, false);
+                FileUtil.writeStringToFile(filePath, s, false);
             }
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();

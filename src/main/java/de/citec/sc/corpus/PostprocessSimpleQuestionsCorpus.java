@@ -112,7 +112,7 @@ public class PostprocessSimpleQuestionsCorpus {
             System.out.println(f);
             String filePath2 = "src/main/resources/simplequestions/annotated_fb_data_" + f + "_replaced2.txt";
 
-            FileUtil.writeListToFile(filePath2, replacedContent, false);
+            FileUtil.writeSetToFile(filePath2, replacedContent, false);
         }
 
     }

@@ -157,7 +157,7 @@ public class PreprocessSimpleQuestionsCorpus {
             System.out.println(f + " predicate count : " + predicateCounter + "/" + content.size());
             String filePath2 = "src/main/resources/simplequestions/annotated_fb_data_" + f + "_replaced.txt";
 
-            FileUtil.writeListToFile(filePath2, replacedContent, false);
+            FileUtil.writeSetToFile(filePath2, replacedContent, false);
         }
     }
 
