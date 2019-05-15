@@ -1,0 +1,62 @@
+{"task_name": "simpleQA",
+ "dataset": "freebase",
+
+ "padding_position":"pre",
+ "negative_sample_size": 20,
+ "max_questions": 1000,
+ "top_k_vocab": 10000,
+ "test_top_candidates":25,
+
+ "n_epochs": 5,
+ "batch_size": 15,
+ "callback_patience": 5,
+ "use_graph_embeddings":false,
+ "graph_embedding_prefix":"obj",
+ "use_ner":false,
+
+
+ "layer_type":"rnn",
+ "char_embedding_size": 20,
+ "word_embedding_size": 100,
+ "graph_embedding_size": 100,
+ "match_embedding_size": 100,
+
+ "question_char_kernel_size" : 2,
+ "question_char_cnn_depth" : 5,
+ "question_token_kernel_size" : 2,
+ "question_token_cnn_depth" : 5,
+
+ "predicate_token_kernel_size" : 2,
+ "predicate_token_cnn_depth" : 5,
+ "subject_char_kernel_size" : 2,
+ "subject_char_cnn_depth" : 5,
+
+ "predicate_embedding_size":200,
+ "predicate_embedding_depth":2,
+ "predicate_embedding_kernel_size": 3,
+ "predicate_encoder_embedding_type":"word+att",
+ "predicate_model_type":"predict_all_predicates",
+
+ "predicate_model_monitor" : "val_acc",
+ "predicate_model_loss_function" : "categorical_crossentropy",
+ "predicate_model_metrics" : "accuracy",
+ "predicate_model_callback_mode" : "max",
+
+
+ "subject_position_max_distance": 10,
+ "distance_embedding_size": 10,
+
+ "dropout": 0.5,
+ "word_dropout": 0.5,
+ "word_embedding_path": "../res/glove.6B.100d.txt",
+
+ "use_predicate_and_subject_outputs":false,
+ "answer_loss_weight":0.6,
+ "subject_answer_loss_weight":0.3,
+ "predicate_answer_loss_weight":0.1,
+
+
+ "validation_file_path":"../res/valid.txt",
+ "training_file_path":"../res/train.txt"
+
+}
